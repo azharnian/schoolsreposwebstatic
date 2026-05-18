@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<script src="deployggb.js"></script>
+
+<style>
+html, body {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background: white;
+    font-family: Arial;
+}
+
+#ggb-element {
+    width: 100vw;
+    height: 100vh;
+}
+
+#resetBtn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 999;
+    padding: 8px 14px;
+    font-size: 14px;
+    cursor: pointer;
+}
+</style>
+</head>
+
+<body>
+
+<button id="resetBtn">Reset View</button>
+
+<div id="ggb-element"></div>
+
+<script>
+var params = {
+    "appName": "3d",
+    "width": 900,
+    "height": 600,
+    "showToolBar": false,
+    "showMenuBar": false,
+    "showAlgebraInput": false,
+    "showResetIcon": false,
+    "enableLabelDrags": false,
+    "enableShiftDragZoom": false,
+    "enableRightClick": false,
+    "capturingThreshold": null,
+    "showFullscreenButton": false,
+    "borderColor": null,
+    "filename": "3dcuboid.ggb"
+};
+
+var applet = new GGBApplet(params, true);
+
+window.addEventListener("load", function () {
+    applet.inject('ggb-element');
+});
+
+function resetView() {
+    var api = applet.getAppletObject();
+
+    /*
+      Replace these numbers with YOUR preferred view.
+    */
+
+    api.evalCommand(
+      "SetViewDirection((1,1,1))"
+    );
+
+    api.setCoordSystem(-5,5,-5,5);
+}
+
+document.getElementById("resetBtn").onclick = resetView;
+</script>
+
+</body>
+</html>
